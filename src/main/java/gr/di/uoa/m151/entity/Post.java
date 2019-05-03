@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "post", schema = "public", catalog = "m151_rds")
+@Table(name = "post", schema = "public")
 public class Post {
 
     @Id

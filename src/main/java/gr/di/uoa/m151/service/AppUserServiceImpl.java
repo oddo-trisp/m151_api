@@ -46,12 +46,15 @@ public class AppUserServiceImpl {
                 .withTrim());
 
         List<AppUser> appUsers = new ArrayList<>();
+        Long id = 1L;
         for (CSVRecord csvRecord : csvParser) {
             AppUser appUser = new AppUser();
             appUser.setFullName(csvRecord.get("full_name"));
             appUser.setEmail(csvRecord.get("email"));
             appUser.setPassword(csvRecord.get("password"));
             appUser.setEnabled(true);
+            appUser.setId(id);
+            id++;
 
             appUsers.add(appUser);
         }
@@ -59,7 +62,7 @@ public class AppUserServiceImpl {
                 .stream()
                 .filter(distinctByKey(AppUser::getEmail))
                 .collect(Collectors.toList());
-        return appUserRepository.saveAll(appUsers.subList(0,10));
+        return appUserRepository.saveAll(appUsers.subList(0,4));
 
     }
 

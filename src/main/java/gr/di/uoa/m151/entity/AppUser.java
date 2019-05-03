@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "app_user", schema = "public", catalog = "m151_rds")
+@Table(name = "app_user", schema = "public")
 public class AppUser implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 

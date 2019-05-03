@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user_post_reaction", schema = "public", catalog = "m151_rds")
+@Table(name = "user_post_reaction", schema = "public")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "reaction_type", discriminatorType = DiscriminatorType.STRING)
 public abstract class UserPostReaction implements Serializable {
