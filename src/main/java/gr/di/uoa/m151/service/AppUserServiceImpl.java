@@ -46,15 +46,15 @@ public class AppUserServiceImpl {
                 .withTrim());
 
         List<AppUser> appUsers = new ArrayList<>();
-        Long id = 1L;
+        //Long id = 1L;
         for (CSVRecord csvRecord : csvParser) {
             AppUser appUser = new AppUser();
             appUser.setFullName(csvRecord.get("full_name"));
             appUser.setEmail(csvRecord.get("email"));
             appUser.setPassword(csvRecord.get("password"));
             appUser.setEnabled(true);
-            appUser.setId(id);
-            id++;
+            //appUser.setId(id);
+            //id++;
 
             appUsers.add(appUser);
         }

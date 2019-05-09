@@ -19,7 +19,7 @@ public class AppUserController {
         this.appUserService = appUserService;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/findAllAppUsers", method = RequestMethod.GET)
     public Iterable<AppUser> findAllAppUsers() {
         return appUserService.findAllAppUsers();
     }

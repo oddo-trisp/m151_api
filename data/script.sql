@@ -29,6 +29,11 @@ create table user_post_reaction (
                                   foreign key (post_id) references post(id)
 );
 
+create table follow (
+  main_user_id bigint not null,
+  follower_id bigint not null
+);
+
 
 INSERT INTO public.user_post_reaction (post_id, app_user_id, comment_text, reaction_type) VALUES (4, 25044, 'Comment from 25044', 'COMMENT');
 INSERT INTO public.user_post_reaction (post_id, app_user_id, comment_text, reaction_type) VALUES (4, 25043, 'Comment from 25043', 'COMMENT');

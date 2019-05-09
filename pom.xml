@@ -13,6 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>m151_api</name>
     <description>M151 Rest API</description>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>1.8</java.version>
@@ -45,19 +46,26 @@
             <version>1.6</version>
         </dependency>
 
-        <!-- for spring boot -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-aws -->
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-aws-jdbc</artifactId>
+            <version>2.1.1.RELEASE</version>
+        </dependency>
+
+        <!-- for spring boot -->
+        <!--<dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
             <version>4.0.0-RC1</version>
-        </dependency>
+        </dependency>-->
 
         <!-- for spring namespace -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>sharding-jdbc-spring-namespace</artifactId>
             <version>4.0.0-RC1</version>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 
