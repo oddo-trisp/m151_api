@@ -3,6 +3,7 @@ package gr.di.uoa.m151.controller;
 import gr.di.uoa.m151.entity.AppUser;
 import gr.di.uoa.m151.service.AppUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,5 +28,10 @@ public class AppUserController {
     @RequestMapping(value = "/parser", method = RequestMethod.GET)
     public Iterable<AppUser> persistUsers() throws IOException {
         return appUserService.parseUsers();
+    }
+
+    @RequestMapping(value = "/signup", method = RequestMethod.POST,  consumes = "application/json", produces = "application/json")
+    public String signUp(@RequestBody AppUser newAppUser) {
+        return "success";
     }
 }
