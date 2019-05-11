@@ -3,12 +3,11 @@ package gr.di.uoa.m151.controller;
 import gr.di.uoa.m151.entity.AppUser;
 import gr.di.uoa.m151.service.AppUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Map;
 
 @RestController
 public class AppUserController {
@@ -30,8 +29,13 @@ public class AppUserController {
         return appUserService.parseUsers();
     }
 
-    @RequestMapping(value = "/signup", method = RequestMethod.POST,  consumes = "application/json", produces = "application/json")
-    public String signUp(@RequestBody AppUser newAppUser) {
-        return "success";
+    @RequestMapping(value = "/signup", method = RequestMethod.POST,  consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public AppUser signUp(@RequestBody AppUser newAppUser) {
+        return appUserService.saveAppUser(newAppUser);
+    }
+
+    @RequestMapping(value = "/findAppUserByEmail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public AppUser findAppUserByEmail(@RequestParam Map<String,String> parameters) {
+        return appUserService.findAppUserByEmail(parameters.getOrDefault("email",null));
     }
 }

@@ -66,9 +66,13 @@ public class AppUserServiceImpl {
 
     }
 
+    public AppUser saveAppUser(AppUser newAppUser) { return appUserRepository.save(newAppUser); }
+
     AppUser findUser(Long id){
         return appUserRepository.findById(id).orElse(null);
     }
+
+    public AppUser findAppUserByEmail(String email) { return appUserRepository.findAppUserByEmail(email).orElse(null); }
 
     private static <T> Predicate<T> distinctByKey(
             Function<? super T, ?> ke) {
