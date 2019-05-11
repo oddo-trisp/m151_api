@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.Map;
 
 @RestController
 public class AppUserController {
@@ -35,7 +34,7 @@ public class AppUserController {
     }
 
     @RequestMapping(value = "/findAppUserByEmail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public AppUser findAppUserByEmail(@RequestParam Map<String,String> parameters) {
-        return appUserService.findAppUserByEmail(parameters.getOrDefault("email",null));
+    public AppUser findAppUserByEmail(@RequestParam String email) {
+        return appUserService.findAppUserByEmail(email);
     }
 }

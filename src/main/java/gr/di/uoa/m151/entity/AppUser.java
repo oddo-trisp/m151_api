@@ -28,6 +28,10 @@ public class AppUser implements Serializable {
     private String password;
 
     @Basic
+    @Column(name="encrypted_password")
+    private String encryptedPassword;
+
+    @Basic
     @Column(name = "enabled", nullable = false)
     private boolean enabled = true;
 
@@ -104,5 +108,13 @@ public class AppUser implements Serializable {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+    }
+
+    public String getEncryptedPassword() {
+        return encryptedPassword;
+    }
+
+    public void setEncryptedPassword(String encryptedPassword) {
+        this.encryptedPassword = encryptedPassword;
     }
 }

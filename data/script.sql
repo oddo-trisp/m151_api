@@ -6,6 +6,7 @@ create table app_user (
                         full_name varchar(128) not null,
                         email citext unique not null ,
                         password varchar(128) not null,
+                        encrypted_password varchar(256) not null,
                         enabled  boolean not null
 );
 
