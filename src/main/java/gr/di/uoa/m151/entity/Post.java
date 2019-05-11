@@ -15,6 +15,10 @@ public class Post {
     private Long id;
 
     @Basic
+    @Column(name = "post_title", length = -1)
+    private String postTitle;
+
+    @Basic
     @Column(name = "post_text", length = -1)
     private String postText;
 
@@ -39,6 +43,14 @@ public class Post {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPostTitle() {
+        return postTitle;
+    }
+
+    public void setPostTitle(String postTitle) {
+        this.postTitle = postTitle;
     }
 
     public String getPostText() {
@@ -84,7 +96,7 @@ public class Post {
                 .filter(ur -> appUser.equals(ur.getAppUser()))
                 .forEach(ur ->{
                     userReactions.remove(ur);
-                    ur.getAppUser().removePostReaction(ur);
+                    //ur.getAppUser().removePostReaction(ur);
                     ur.setPost(null);
                     ur.setAppUser(null);
                 });

@@ -1,6 +1,7 @@
 package gr.di.uoa.m151.service;
 
 import gr.di.uoa.m151.entity.AppUser;
+import gr.di.uoa.m151.entity.Post;
 import gr.di.uoa.m151.repo.AppUserRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -12,10 +13,11 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -73,6 +75,17 @@ public class AppUserServiceImpl {
     }
 
     public AppUser findAppUserByEmail(String email) { return appUserRepository.findAppUserByEmail(email).orElse(null); }
+
+    public AppUser addNewPost(String email, Post post) {
+        AppUser appUser = appUserRepository.findAppUserByEmail(email).orElse(null);
+
+        if(appUser == null)
+            return null;
+
+        post.setCreationDate(new Timestamp(new Date().getTime()));
+        appUser.addPost(post);
+        return appUserRepository.save(appUser);
+    }
 
     private static <T> Predicate<T> distinctByKey(
             Function<? super T, ?> ke) {

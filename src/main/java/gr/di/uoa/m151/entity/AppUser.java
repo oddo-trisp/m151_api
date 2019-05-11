@@ -43,12 +43,12 @@ public class AppUser implements Serializable {
     private List<Post> posts = new ArrayList<>();
 
     //TODO refactor to Map
-    @OneToMany(
+    /*@OneToMany(
             mappedBy = "appUser",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<UserPostReaction> postReactions = new ArrayList<>();
+    private List<UserPostReaction> postReactions = new ArrayList<>();*/
 
     public Long getId() {
         return id;
@@ -90,7 +90,7 @@ public class AppUser implements Serializable {
         this.enabled = enabled;
     }
 
-    public List<UserPostReaction> getPostReactions() {
+    /*public List<UserPostReaction> getPostReactions() {
         return postReactions;
     }
 
@@ -100,7 +100,7 @@ public class AppUser implements Serializable {
 
     public void removePostReaction(UserPostReaction userPostReaction){
         postReactions.remove(userPostReaction);
-    }
+    }*/
 
     public List<Post> getPosts() {
         return posts;
@@ -108,6 +108,11 @@ public class AppUser implements Serializable {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+    }
+
+    public void addPost(Post post){
+        post.setAppUser(this);
+        posts.add(post);
     }
 
     public String getEncryptedPassword() {

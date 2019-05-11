@@ -12,6 +12,7 @@ create table app_user (
 
 create table post (
                     id bigserial primary key,
+                    post_title  text,
                     post_text  text,
                     app_user_id bigint not null ,
                     creation_date timestamp,
