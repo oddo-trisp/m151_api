@@ -17,10 +17,21 @@ public class CommentReaction extends UserPostReaction {
         super(post, appUser);
     }
 
+    @Basic
+    @Column(name = "comment_title", nullable = true, length = -1)
+    private String commentTitle;
 
     @Basic
     @Column(name = "comment_text", nullable = true, length = -1)
     private String commentText;
+
+    public String getCommentTitle() {
+        return commentTitle;
+    }
+
+    public void setCommentTitle(String commentTitle) {
+        this.commentTitle = commentTitle;
+    }
 
     public String getCommentText() {
         return commentText;

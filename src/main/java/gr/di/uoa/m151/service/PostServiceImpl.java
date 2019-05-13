@@ -1,6 +1,8 @@
 package gr.di.uoa.m151.service;
 
 import gr.di.uoa.m151.entity.AppUser;
+import gr.di.uoa.m151.entity.CommentReaction;
+import gr.di.uoa.m151.entity.LikeReaction;
 import gr.di.uoa.m151.entity.Post;
 import gr.di.uoa.m151.repo.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +38,20 @@ public class PostServiceImpl {
         return postRepository.findById(id).orElse(null);
     }
 
-    public Post addReaction(Long userId, Long postId){
-        Post post = findPostById(postId);
-        AppUser appUser = appUserService.findUser(userId);
-        post.addUserReaction(appUser);
+    public Post addUserPostReaction(String email, Post post){
+        AppUser appUser = appUserService.findAppUserByEmail(email);
+        LikeReaction likeReaction = new LikeReaction();
+        likeReaction.setAppUser(appUser);
+        post.addUserPostReaction(likeReaction);
+        return postRepository.save(post);
+    }
+
+    public Post addCommentReaction(String email, Post post, String commentText){
+        AppUser appUser = appUserService.findAppUserByEmail(email);
+        CommentReaction commentReaction = new CommentReaction();
+        commentReaction.setAppUser(appUser);
+        commentReaction.setCommentText(commentText);
+        post.addUserPostReaction(commentReaction);
         return postRepository.save(post);
     }
 }

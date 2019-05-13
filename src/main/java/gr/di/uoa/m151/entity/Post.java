@@ -1,6 +1,7 @@
 package gr.di.uoa.m151.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -38,6 +39,7 @@ public class Post {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @JsonManagedReference
     private List<UserPostReaction> userReactions = new ArrayList<>();
 
     public Long getId() {
@@ -88,8 +90,8 @@ public class Post {
         this.userReactions = userReactions;
     }
 
-    public void addUserReaction(AppUser appUser) {
-        UserPostReaction userPostReaction = new LikeReaction(this, appUser);
+    public void addUserPostReaction(UserPostReaction userPostReaction) {
+        userPostReaction.setPost(this);
         userReactions.add(userPostReaction);
     }
 
