@@ -1,5 +1,7 @@
 package gr.di.uoa.m151.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "app_user_id")
+    @JsonBackReference
     private AppUser appUser;
 
     @OneToMany(

@@ -1,5 +1,7 @@
 package gr.di.uoa.m151.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,6 +42,7 @@ public class AppUser implements Serializable {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @JsonManagedReference
     private List<Post> posts = new ArrayList<>();
 
     //TODO refactor to Map
