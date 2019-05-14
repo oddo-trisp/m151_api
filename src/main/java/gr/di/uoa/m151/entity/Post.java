@@ -31,7 +31,7 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "app_user_id")
-    @JsonBackReference
+    @JsonBackReference(value = "appUser")
     private AppUser appUser;
 
     @OneToMany(
@@ -39,7 +39,7 @@ public class Post {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    //@JsonManagedReference
+    @JsonManagedReference(value = "userReactions")
     private List<UserPostReaction> userReactions = new ArrayList<>();
 
     public Long getId() {

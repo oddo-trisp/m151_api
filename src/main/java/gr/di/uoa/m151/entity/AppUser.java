@@ -42,7 +42,7 @@ public class AppUser implements Serializable {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JsonManagedReference
+    @JsonManagedReference(value = "posts")
     private List<Post> posts = new ArrayList<>();
 
     //TODO refactor to Map

@@ -19,13 +19,16 @@ public abstract class UserPostReaction implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
-   // @JsonBackReference
+    @JsonBackReference(value = "post")
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "app_user_id")
-    @JsonBackReference
+    @JsonBackReference(value = "appUser")
     private AppUser appUser;
+
+    @Transient
+    protected String reactionType;
 
     public UserPostReaction() {
     }
@@ -57,5 +60,13 @@ public abstract class UserPostReaction implements Serializable {
 
     public void setAppUser(AppUser appUser) {
         this.appUser = appUser;
+    }
+
+    public String getReactionType() {
+        return reactionType;
+    }
+
+    public void setReactionType(String reactionType) {
+        this.reactionType = reactionType;
     }
 }

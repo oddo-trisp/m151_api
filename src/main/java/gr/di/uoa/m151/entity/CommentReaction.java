@@ -10,11 +10,12 @@ import javax.persistence.Entity;
 public class CommentReaction extends UserPostReaction {
 
     public CommentReaction(){
-
+        reactionType = "COMMENT";
     }
 
     public CommentReaction(Post post, AppUser appUser){
         super(post, appUser);
+        reactionType = "COMMENT";
     }
 
     @Basic

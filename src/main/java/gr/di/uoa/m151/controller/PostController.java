@@ -2,7 +2,6 @@ package gr.di.uoa.m151.controller;
 
 import gr.di.uoa.m151.entity.CommentReaction;
 import gr.di.uoa.m151.entity.Post;
-import gr.di.uoa.m151.entity.UserPostReaction;
 import gr.di.uoa.m151.service.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

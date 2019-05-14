@@ -7,10 +7,11 @@ import javax.persistence.Entity;
 @DiscriminatorValue("LIKE")
 public class LikeReaction extends UserPostReaction {
     public LikeReaction(){
-
+        reactionType = "LIKE";
     }
 
     public LikeReaction(Post post, AppUser appUser){
         super(post, appUser);
+        reactionType = "LIKE";
     }
 }
