@@ -39,7 +39,7 @@ public class Post {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JsonManagedReference
+    //@JsonManagedReference
     private List<UserPostReaction> userReactions = new ArrayList<>();
 
     public Long getId() {

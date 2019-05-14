@@ -1,6 +1,8 @@
 package gr.di.uoa.m151.controller;
 
+import gr.di.uoa.m151.entity.CommentReaction;
 import gr.di.uoa.m151.entity.Post;
+import gr.di.uoa.m151.entity.UserPostReaction;
 import gr.di.uoa.m151.service.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,10 +23,11 @@ public class PostController {
         return postService.findPostById(id);
     }
 
-    @RequestMapping(value = "/addUserPostReaction", method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Post addLikeReaction(@RequestParam String email,@RequestBody Post post) {
-        return postService.addUserPostReaction(email, post);
+    @RequestMapping(value = "/addCommentReaction", method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Post addCommentReaction(@RequestParam String email, @RequestParam String postId,@RequestBody CommentReaction commentReaction) {
+        return postService.addUserPostReaction(email, Long.valueOf(postId), commentReaction);
     }
 
     /*@RequestMapping(value = "/add_temp_post", method = RequestMethod.GET)

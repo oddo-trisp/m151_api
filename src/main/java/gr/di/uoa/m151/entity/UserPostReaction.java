@@ -19,7 +19,7 @@ public abstract class UserPostReaction implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
-    @JsonBackReference
+   // @JsonBackReference
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
