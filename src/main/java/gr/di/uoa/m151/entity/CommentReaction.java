@@ -1,21 +1,17 @@
 package gr.di.uoa.m151.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.annotation.PostConstruct;
+import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue("COMMENT")
 public class CommentReaction extends UserPostReaction {
 
     public CommentReaction(){
-        reactionType = "COMMENT";
     }
 
     public CommentReaction(Post post, AppUser appUser){
         super(post, appUser);
-        reactionType = "COMMENT";
     }
 
     @Basic
@@ -40,5 +36,12 @@ public class CommentReaction extends UserPostReaction {
 
     public void setCommentText(String commentText) {
         this.commentText = commentText;
+    }
+
+    @PostLoad
+    @Override
+    public void init(){
+        reactionType = "COMMENT";
+        super.init();
     }
 }

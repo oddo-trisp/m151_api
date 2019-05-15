@@ -39,9 +39,15 @@ public class PostServiceImpl {
     public Post addUserPostReaction(String email, Long postId, UserPostReaction userPostReaction){
         AppUser appUser = appUserService.findAppUserByEmail(email);
         Post post = postRepository.findById(postId).orElse(null);
-        if(post == null) return null;
+        if(post == null || appUser == null) return null;
+
         userPostReaction.setAppUser(appUser);
         post.addUserPostReaction(userPostReaction);
-        return postRepository.save(post);
+        Post persistedPost = postRepository.save(post);
+        persistedPost.getUserReactions().forEach(r -> {
+            if(r.getReactionType() == null)
+                r.init();
+        });
+        return persistedPost;
     }
 }

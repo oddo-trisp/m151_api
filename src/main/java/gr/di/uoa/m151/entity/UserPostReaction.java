@@ -27,10 +27,19 @@ public abstract class UserPostReaction implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "app_user_id")
     @JsonIgnore
-    private AppUser appUser;
+    protected AppUser appUser;
 
     @Transient
     protected String reactionType;
+
+    @Transient
+    protected String userEmail;
+
+    @Transient
+    protected String userFullName;
+
+    @Transient
+    protected String userImage;
 
     public UserPostReaction() {
     }
@@ -70,5 +79,38 @@ public abstract class UserPostReaction implements Serializable {
 
     public void setReactionType(String reactionType) {
         this.reactionType = reactionType;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getUserFullName() {
+        return userFullName;
+    }
+
+    public void setUserFullName(String userFullName) {
+        this.userFullName = userFullName;
+    }
+
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
+    }
+
+    @PostLoad
+    public void init(){
+        if(appUser != null){
+            userEmail = appUser.getEmail();
+            userFullName = appUser.getFullName();
+            userImage = appUser.getUserImage();
+        }
     }
 }
