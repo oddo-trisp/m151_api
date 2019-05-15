@@ -26,6 +26,10 @@ public class Post {
     private String postText;
 
     @Basic
+    @Column(name = "post_image", length = -1)
+    private String postImage;
+
+    @Basic
     @Column(name = "creation_date")
     private Timestamp creationDate;
 
@@ -39,7 +43,7 @@ public class Post {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JsonManagedReference(value = "userReactions")
+    //@JsonManagedReference(value = "userReactions")
     private List<UserPostReaction> userReactions = new ArrayList<>();
 
     public Long getId() {
@@ -65,6 +69,10 @@ public class Post {
     public void setPostText(String postText) {
         this.postText = postText;
     }
+
+    public String getPostImage() { return postImage; }
+
+    public void setPostImage(String postImage) { this.postImage = postImage; }
 
     public Timestamp getCreationDate() {
         return creationDate;

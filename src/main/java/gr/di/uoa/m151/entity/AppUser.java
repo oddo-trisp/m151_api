@@ -30,6 +30,10 @@ public class AppUser implements Serializable {
     private String password;
 
     @Basic
+    @Column(name = "user_image", length = -1)
+    private String userImage;
+
+    @Basic
     @Column(name="encrypted_password")
     private String encryptedPassword;
 
@@ -84,6 +88,10 @@ public class AppUser implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getUserImage() { return userImage; }
+
+    public void setUserImage(String userImage) { this.userImage = userImage; }
 
     public boolean isEnabled() {
         return enabled;
