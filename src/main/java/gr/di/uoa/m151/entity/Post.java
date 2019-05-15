@@ -44,7 +44,7 @@ public class Post {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    //@JsonManagedReference(value = "userReactions")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<UserPostReaction> userReactions = new ArrayList<>();
 
     public Long getId() {

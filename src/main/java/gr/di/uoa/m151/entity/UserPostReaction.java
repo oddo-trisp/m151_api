@@ -1,6 +1,8 @@
 package gr.di.uoa.m151.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,10 +21,12 @@ public abstract class UserPostReaction implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
+    @JsonIgnore
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "app_user_id")
+    @JsonIgnore
     private AppUser appUser;
 
     @Transient
