@@ -2,6 +2,7 @@ package gr.di.uoa.m151.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -35,7 +36,7 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "app_user_id")
-    @JsonBackReference(value = "appUser")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private AppUser appUser;
 
     @OneToMany(

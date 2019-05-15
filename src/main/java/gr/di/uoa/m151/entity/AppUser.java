@@ -1,6 +1,7 @@
 package gr.di.uoa.m151.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -46,7 +47,7 @@ public class AppUser implements Serializable {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JsonManagedReference(value = "posts")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<Post> posts = new ArrayList<>();
 
     //TODO refactor to Map
