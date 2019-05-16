@@ -104,23 +104,16 @@ public class Post {
         userReactions.add(userPostReaction);
     }
 
-    public void removeUserReaction(AppUser appUser) {
-        userReactions.stream()
+    public void removeUserReaction(AppUser appUser, Long reactionId) {
+        UserPostReaction reaction = userReactions.stream()
+                .filter(ur -> ur.getId().equals(reactionId))
                 .filter(ur -> this.equals(ur.getPost()))
                 .filter(ur -> appUser.equals(ur.getAppUser()))
-                .forEach(ur ->{
-                    userReactions.remove(ur);
-                    //ur.getAppUser().removePostReaction(ur);
-                    ur.setPost(null);
-                    ur.setAppUser(null);
-                });
-        //userReactions.forEach(ur -> {
-        //    if(ur.getPost().equals(this) && ur.getAppUser().equals(appUser)){
-        //        userReactions.remove(ur);
-        //        ur.getAppUser().getPostReactions().remove(ur);
-        //        ur.setPost(null);
-        //        ur.setAppUser(null);
-        //    }
-        //});
+                .findFirst().orElse(null);
+        if(reaction != null){
+            reaction.setPost(null);
+            reaction.setAppUser(null);
+            userReactions.remove(reaction);
+        }
     }
 }

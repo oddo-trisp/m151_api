@@ -50,4 +50,18 @@ public class PostServiceImpl {
         });
         return persistedPost;
     }
+
+    public Post removeUserPostReaction(String email, Long postId, Long likeId){
+        AppUser appUser = appUserService.findAppUserByEmail(email);
+        Post post = postRepository.findById(postId).orElse(null);
+        if(post == null || appUser == null) return null;
+
+        post.removeUserReaction(appUser, likeId);
+        Post persistedPost = postRepository.save(post);
+        persistedPost.getUserReactions().forEach(r -> {
+            if(r.getReactionType() == null)
+                r.init();
+        });
+        return persistedPost;
+    }
 }
