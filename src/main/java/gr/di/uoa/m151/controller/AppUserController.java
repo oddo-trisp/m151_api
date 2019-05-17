@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 public class AppUserController {
@@ -42,5 +43,16 @@ public class AppUserController {
     @RequestMapping(value = "/addNewPost", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public AppUser addNewPost(@RequestParam String email,@RequestBody Post newPost) {
         return appUserService.addNewPost(email,newPost);
+    }
+
+    @RequestMapping(value = "/findLatestAppUsers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<AppUser> findLatestAppUsers() {
+        return appUserService.findLatestAppUsers();
+    }
+
+    @RequestMapping(value = "/followUser", method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public AppUser followUser(@RequestParam String email, @RequestParam String userId) {
+        return appUserService.followUser(email, Long.valueOf(userId));
     }
 }

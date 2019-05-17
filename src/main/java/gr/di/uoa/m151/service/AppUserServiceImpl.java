@@ -93,4 +93,19 @@ public class AppUserServiceImpl {
         Map<Object, Boolean> seen = new ConcurrentHashMap<>();
         return t -> seen.putIfAbsent(ke.apply(t), Boolean.TRUE) == null;
     }
+
+    public List<AppUser>  findLatestAppUsers(){
+        return appUserRepository.findTop20ByOrderByIdDesc();
+    }
+
+    public AppUser  followUser(String email, Long userId){
+        AppUser mainUser = appUserRepository.findAppUserByEmail(email).orElse(null);
+        AppUser userToFollow = appUserRepository.findById(userId).orElse(null);
+
+        if(mainUser == null || userToFollow == null)
+            return null;
+
+        mainUser.addFollowing(userToFollow);
+        return appUserRepository.save(mainUser);
+    }
 }
