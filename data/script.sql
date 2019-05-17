@@ -33,7 +33,7 @@ create table user_post_reaction (
 
 create table follow (
   main_user_id bigint not null,
-  follower_id bigint not null
+  following_user_id bigint not null
 );
 
 

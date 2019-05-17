@@ -1,13 +1,13 @@
 package gr.di.uoa.m151.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "app_user", schema = "public")
@@ -49,6 +49,20 @@ public class AppUser implements Serializable {
     )
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<Post> posts = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "follow",
+            joinColumns = @JoinColumn(name = "main_user_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "following_user_id", nullable = false)
+    )
+    private Set<AppUser> followings = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "follow",
+            joinColumns = @JoinColumn(name = "following_user_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "main_user_id", nullable = false)
+    )
+    private Set<AppUser> followers = new HashSet<>();
 
     //TODO refactor to Map
     /*@OneToMany(
@@ -133,5 +147,37 @@ public class AppUser implements Serializable {
 
     public void setEncryptedPassword(String encryptedPassword) {
         this.encryptedPassword = encryptedPassword;
+    }
+
+    public Set<AppUser> getFollowings() {
+        return followings;
+    }
+
+    public void setFollowings(Set<AppUser> followings) {
+        this.followings = followings;
+    }
+
+    public void addFollowing(AppUser following){
+        followings.add(following);
+    }
+
+    public void removeFollowing(AppUser following){
+        followings.remove(following);
+    }
+
+    public Set<AppUser> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(Set<AppUser> followers) {
+        this.followers = followers;
+    }
+
+    public void addFollower(AppUser follower){
+        followings.add(follower);
+    }
+
+    public void removeFollower(AppUser follower){
+        followings.remove(follower);
     }
 }
