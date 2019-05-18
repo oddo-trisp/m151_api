@@ -1,12 +1,22 @@
 package gr.di.uoa.m151.entity;
 
-public class AppUserData {
+import javax.persistence.*;
 
-    private Long id;
+@MappedSuperclass
+public abstract class AppUserCore {
 
-    private String fullName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    protected Long id;
 
-    private String userImage;
+    @Basic
+    @Column(name = "full_name", nullable = false, length = 128)
+    protected String fullName;
+
+    @Basic
+    @Column(name = "user_image", length = -1)
+    protected String userImage;
 
 
     public Long getId() {

@@ -13,16 +13,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "app_user", schema = "public")
-public class AppUser implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
-
-    @Basic
-    @Column(name = "full_name", nullable = false, length = 128)
-    private String fullName;
+public class AppUser extends AppUserCore implements Serializable {
 
     @Basic
     @Column(name = "email", nullable = false, length = -1)
@@ -31,10 +22,6 @@ public class AppUser implements Serializable {
     @Basic
     @Column(name = "password", nullable = false, length = 128)
     private String password;
-
-    @Basic
-    @Column(name = "user_image", length = -1)
-    private String userImage;
 
     @Basic
     @Column(name = "encrypted_password")
@@ -70,34 +57,13 @@ public class AppUser implements Serializable {
     private Set<AppUser> followers = new HashSet<>();
 
     @Transient
-    private Set<AppUserData> followersData = new HashSet<>();
+    private Set<AppUserShort> followersShort = new HashSet<>();
 
     @Transient
-    private Set<AppUserData> followingsData = new HashSet<>();
+    private Set<AppUserShort> followingsShort = new HashSet<>();
 
-    //TODO refactor to Map
-    /*@OneToMany(
-            mappedBy = "appUser",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<UserPostReaction> postReactions = new ArrayList<>();*/
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
 
     public String getEmail() {
         return email;
@@ -115,14 +81,6 @@ public class AppUser implements Serializable {
         this.password = password;
     }
 
-    public String getUserImage() {
-        return userImage;
-    }
-
-    public void setUserImage(String userImage) {
-        this.userImage = userImage;
-    }
-
     public boolean isEnabled() {
         return enabled;
     }
@@ -130,18 +88,6 @@ public class AppUser implements Serializable {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-
-    /*public List<UserPostReaction> getPostReactions() {
-        return postReactions;
-    }
-
-    public void setPostReactions(List<UserPostReaction> postReactions) {
-        this.postReactions = postReactions;
-    }
-
-    public void removePostReaction(UserPostReaction userPostReaction){
-        postReactions.remove(userPostReaction);
-    }*/
 
     public List<Post> getPosts() {
         return posts;
@@ -192,38 +138,25 @@ public class AppUser implements Serializable {
         followings.add(follower);
     }
 
-    public void removeFollower(AppUser follower) {
-        followings.remove(follower);
+    public Set<AppUserShort> getFollowersShort() {
+        return followersShort;
     }
 
-    public Set<AppUserData> getFollowersData() {
-        return followersData;
+    public void setFollowersShort(Set<AppUserShort> followersShort) {
+        this.followersShort = followersShort;
     }
 
-    public void setFollowersData(Set<AppUserData> followersData) {
-        this.followersData = followersData;
+    public Set<AppUserShort> getFollowingsShort() {
+        return followingsShort;
     }
 
-    public Set<AppUserData> getFollowingsData() {
-        return followingsData;
-    }
-
-    public void setFollowingsData(Set<AppUserData> followingsData) {
-        this.followingsData = followingsData;
-    }
-
-    private AppUserData createAppUserData(AppUser appUser) {
-        AppUserData appUserData = new AppUserData();
-        appUserData.setId(appUser.id);
-        appUserData.setFullName(appUser.fullName);
-        appUserData.setUserImage(appUser.userImage);
-
-        return appUserData;
+    public void setFollowingsShort(Set<AppUserShort> followingsShort) {
+        this.followingsShort = followingsShort;
     }
 
     @PostLoad
     public void init() {
-        followersData = followers.stream().map(this::createAppUserData).collect(Collectors.toSet());
-        followingsData = followings.stream().map(this::createAppUserData).collect(Collectors.toSet());
+        followersShort = followers.stream().map(AppUserShort::new).collect(Collectors.toSet());
+        followingsShort = followings.stream().map(AppUserShort::new).collect(Collectors.toSet());
     }
 }

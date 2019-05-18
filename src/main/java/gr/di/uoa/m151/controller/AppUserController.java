@@ -1,6 +1,7 @@
 package gr.di.uoa.m151.controller;
 
 import gr.di.uoa.m151.entity.AppUser;
+import gr.di.uoa.m151.entity.AppUserShort;
 import gr.di.uoa.m151.entity.Post;
 import gr.di.uoa.m151.service.AppUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +46,9 @@ public class AppUserController {
         return appUserService.addNewPost(email,newPost);
     }
 
-    @RequestMapping(value = "/findLatestAppUsers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<AppUser> findLatestAppUsers() {
-        return appUserService.findLatestAppUsers();
+    @RequestMapping(value = "/findSuggestions", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<AppUserShort> findSuggestions(@RequestParam String email) {
+        return appUserService.findSuggestions(email);
     }
 
     @RequestMapping(value = "/followUser", method = RequestMethod.POST,

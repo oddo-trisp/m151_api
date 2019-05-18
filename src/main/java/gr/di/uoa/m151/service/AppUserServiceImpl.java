@@ -1,7 +1,9 @@
 package gr.di.uoa.m151.service;
 
 import gr.di.uoa.m151.entity.AppUser;
+import gr.di.uoa.m151.entity.AppUserShort;
 import gr.di.uoa.m151.entity.Post;
+import gr.di.uoa.m151.repo.AppUserShortRepository;
 import gr.di.uoa.m151.repo.AppUserRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -29,10 +31,12 @@ public class AppUserServiceImpl {
     final private static String APP_USERS = "data/citizen_file.csv";
 
     final private AppUserRepository appUserRepository;
+    final private AppUserShortRepository appUserShortRepository;
 
     @Autowired
-    public AppUserServiceImpl(AppUserRepository appUserRepository) {
+    public AppUserServiceImpl(AppUserRepository appUserRepository, AppUserShortRepository appUserShortRepository) {
         this.appUserRepository = appUserRepository;
+        this.appUserShortRepository = appUserShortRepository;
     }
 
     public Iterable<AppUser> findAllAppUsers(){
@@ -94,8 +98,8 @@ public class AppUserServiceImpl {
         return t -> seen.putIfAbsent(ke.apply(t), Boolean.TRUE) == null;
     }
 
-    public List<AppUser>  findLatestAppUsers(){
-        return appUserRepository.findTop20ByOrderByIdDesc();
+    public List<AppUserShort>  findSuggestions(String email){
+        return appUserShortRepository.findSuggestions(email);
     }
 
     public AppUser  followUser(String email, Long userId){
