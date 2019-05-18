@@ -1,7 +1,5 @@
 package gr.di.uoa.m151.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -46,6 +44,9 @@ public class Post {
     )
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<UserPostReaction> userReactions = new ArrayList<>();
+
+    @Transient
+    private AppUserShort appUserShort;
 
     public Long getId() {
         return id;
@@ -104,6 +105,14 @@ public class Post {
         userReactions.add(userPostReaction);
     }
 
+    public AppUserShort getAppUserShort() {
+        return appUserShort;
+    }
+
+    public void setAppUserShort(AppUserShort appUserShort) {
+        this.appUserShort = appUserShort;
+    }
+
     public void removeUserReaction(AppUser appUser, Long reactionId) {
         UserPostReaction reaction = userReactions.stream()
                 .filter(ur -> ur.getId().equals(reactionId))
@@ -115,5 +124,11 @@ public class Post {
             reaction.setAppUser(null);
             userReactions.remove(reaction);
         }
+    }
+
+    @PostLoad
+    public void init(){
+        if(appUser != null)
+            appUserShort = new AppUserShort(appUser);
     }
 }

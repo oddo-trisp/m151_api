@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PostServiceImpl {
@@ -18,17 +19,6 @@ public class PostServiceImpl {
     public PostServiceImpl(PostRepository postRepository, AppUserServiceImpl appUserService) {
         this.postRepository = postRepository;
         this.appUserService = appUserService;
-    }
-
-    public Post addTempPost(){
-        Post post = new Post();
-        post.setPostText("This is the first dummy post!");
-        post.setCreationDate(new Timestamp(new Date().getTime()));
-
-        AppUser appUser = appUserService.findUser(25044L);
-        post.setAppUser(appUser);
-
-        return postRepository.save(post);
     }
 
     public Post findPostById(Long id){
@@ -63,5 +53,9 @@ public class PostServiceImpl {
                 r.init();
         });
         return persistedPost;
+    }
+
+    public List<Post> findRecentPosts(String email){
+        return postRepository.findRecentPosts(email);
     }
 }

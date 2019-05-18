@@ -1,6 +1,5 @@
 package gr.di.uoa.m151.entity;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.*;
 
 @Entity

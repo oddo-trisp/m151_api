@@ -1,12 +1,9 @@
 package gr.di.uoa.m151.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 @Table(name = "user_post_reaction", schema = "public")
@@ -33,13 +30,7 @@ public abstract class UserPostReaction implements Serializable {
     protected String reactionType;
 
     @Transient
-    protected String userEmail;
-
-    @Transient
-    protected String userFullName;
-
-    @Transient
-    protected String userImage;
+    protected AppUserShort appUserShort;
 
     public UserPostReaction() {
     }
@@ -81,36 +72,17 @@ public abstract class UserPostReaction implements Serializable {
         this.reactionType = reactionType;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public AppUserShort getAppUserShort() {
+        return appUserShort;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
-    public String getUserFullName() {
-        return userFullName;
-    }
-
-    public void setUserFullName(String userFullName) {
-        this.userFullName = userFullName;
-    }
-
-    public String getUserImage() {
-        return userImage;
-    }
-
-    public void setUserImage(String userImage) {
-        this.userImage = userImage;
+    public void setAppUserShort(AppUserShort appUserShort) {
+        this.appUserShort = appUserShort;
     }
 
     @PostLoad
     public void init(){
-        if(appUser != null){
-            userEmail = appUser.getEmail();
-            userFullName = appUser.getFullName();
-            userImage = appUser.getUserImage();
-        }
+        if(appUser != null)
+            appUserShort = new AppUserShort(appUser);
     }
 }

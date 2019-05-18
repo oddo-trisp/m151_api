@@ -12,7 +12,7 @@ public interface AppUserShortRepository extends CrudRepository<AppUserShort,Long
             "where au.id not in (\n" +
             "    select f.following_user_id from app_user a\n" +
             "    join follow f on f.main_user_id = a.id\n" +
-            "    where a.email = 'mitsos@mitsos.com'\n" +
+            "    where a.email = ?1 \n" +
             ")\n" +
             "order by au.id desc\n" +
             "limit 20;", nativeQuery = true)
