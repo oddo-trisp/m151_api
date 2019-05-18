@@ -141,6 +141,16 @@ public class AppUser extends AppUserCore implements Serializable {
         this.followingsShort = followingsShort;
     }
 
+    public void addFollowingShort(AppUser appUser){
+        followingsShort.add(new AppUserShort(appUser));
+    }
+
+    public void removeFollowingShort(AppUser appUser){
+        AppUserShort appUserShort = followingsShort.stream().filter(a -> appUser.id.equals(a.id)).findFirst().orElse(null);
+        if(appUserShort != null)
+            followingsShort.remove(appUserShort);
+    }
+
     @PostLoad
     public void init() {
         followersShort = followers.stream().map(AppUserShort::new).collect(Collectors.toSet());

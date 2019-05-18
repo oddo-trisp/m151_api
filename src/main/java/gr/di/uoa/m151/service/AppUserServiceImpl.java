@@ -80,6 +80,8 @@ public class AppUserServiceImpl {
 
     public AppUser findAppUserByEmail(String email) { return appUserRepository.findAppUserByEmail(email).orElse(null); }
 
+    public AppUser findAppUserById(Long id) { return appUserRepository.findById(id).orElse(null); }
+
     public AppUser addNewPost(String email, Post post) {
         AppUser appUser = appUserRepository.findAppUserByEmail(email).orElse(null);
 
@@ -114,6 +116,21 @@ public class AppUserServiceImpl {
             return null;
 
         mainUser.addFollowing(userToFollow);
-        return appUserRepository.save(mainUser);
+        AppUser persistedUser = appUserRepository.save(mainUser);
+        persistedUser.addFollowingShort(userToFollow);
+        return persistedUser;
+    }
+
+    public AppUser unfollowUser(String email, Long userId){
+        AppUser mainUser = appUserRepository.findAppUserByEmail(email).orElse(null);
+        AppUser userToUnfollow = appUserRepository.findById(userId).orElse(null);
+
+        if(mainUser == null || userToUnfollow == null)
+            return null;
+
+        mainUser.removeFollowing(userToUnfollow);
+        AppUser persistedUser = appUserRepository.save(mainUser);
+        persistedUser.removeFollowingShort(userToUnfollow);
+        return persistedUser;
     }
 }

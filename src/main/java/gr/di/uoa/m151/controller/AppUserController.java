@@ -41,6 +41,11 @@ public class AppUserController {
         return appUserService.findAppUserByEmail(email);
     }
 
+    @RequestMapping(value = "/findAppUserById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public AppUser findAppUserById(@RequestParam String userId) {
+        return appUserService.findAppUserById(Long.valueOf(userId));
+    }
+
     @RequestMapping(value = "/addNewPost", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public AppUser addNewPost(@RequestParam String email,@RequestBody Post newPost) {
         return appUserService.addNewPost(email,newPost);
@@ -60,5 +65,11 @@ public class AppUserController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public AppUser followUser(@RequestParam String email, @RequestParam String userId) {
         return appUserService.followUser(email, Long.valueOf(userId));
+    }
+
+    @RequestMapping(value = "/unfollowUser", method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public AppUser unfollowUser(@RequestParam String email, @RequestParam String userId) {
+        return appUserService.unfollowUser(email, Long.valueOf(userId));
     }
 }
