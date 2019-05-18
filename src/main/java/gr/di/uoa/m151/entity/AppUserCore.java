@@ -11,6 +11,10 @@ public abstract class AppUserCore {
     protected Long id;
 
     @Basic
+    @Column(name = "email", nullable = false, length = -1)
+    protected String email;
+
+    @Basic
     @Column(name = "full_name", nullable = false, length = 128)
     protected String fullName;
 
@@ -25,6 +29,14 @@ public abstract class AppUserCore {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFullName() {

@@ -15,5 +15,6 @@ public class AppUserShort extends AppUserCore {
         this.id = appUser.id;
         this.fullName = appUser.fullName;
         this.userImage = appUser.userImage;
+        this.email = appUser.email;
     }
 }

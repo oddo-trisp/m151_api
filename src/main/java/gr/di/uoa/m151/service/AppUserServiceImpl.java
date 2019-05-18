@@ -102,6 +102,10 @@ public class AppUserServiceImpl {
         return appUserShortRepository.findSuggestions(email);
     }
 
+    public List<AppUser>  findSuggestionsWithPosts(String email){
+        return appUserRepository.findSuggestions(email);
+    }
+
     public AppUser  followUser(String email, Long userId){
         AppUser mainUser = appUserRepository.findAppUserByEmail(email).orElse(null);
         AppUser userToFollow = appUserRepository.findById(userId).orElse(null);

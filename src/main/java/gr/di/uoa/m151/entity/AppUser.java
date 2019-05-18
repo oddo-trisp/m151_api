@@ -16,10 +16,6 @@ import java.util.stream.Collectors;
 public class AppUser extends AppUserCore implements Serializable {
 
     @Basic
-    @Column(name = "email", nullable = false, length = -1)
-    private String email;
-
-    @Basic
     @Column(name = "password", nullable = false, length = 128)
     private String password;
 
@@ -63,15 +59,6 @@ public class AppUser extends AppUserCore implements Serializable {
     private Set<AppUserShort> followingsShort = new HashSet<>();
 
 
-
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getPassword() {
         return password;

@@ -51,6 +51,11 @@ public class AppUserController {
         return appUserService.findSuggestions(email);
     }
 
+    @RequestMapping(value = "/findSuggestionsWithPosts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<AppUser> findSuggestionsWithPosts(@RequestParam String email) {
+        return appUserService.findSuggestionsWithPosts(email);
+    }
+
     @RequestMapping(value = "/followUser", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public AppUser followUser(@RequestParam String email, @RequestParam String userId) {
