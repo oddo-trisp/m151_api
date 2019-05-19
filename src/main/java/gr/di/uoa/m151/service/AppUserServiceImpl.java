@@ -100,12 +100,12 @@ public class AppUserServiceImpl {
         return t -> seen.putIfAbsent(ke.apply(t), Boolean.TRUE) == null;
     }
 
-    public List<AppUserShort>  findSuggestions(String email){
-        return appUserShortRepository.findSuggestions(email);
+    public List<AppUserShort>  findSuggestions(String email, Integer limit){
+        return appUserShortRepository.findSuggestions(email,limit);
     }
 
-    public List<AppUser>  findSuggestionsWithPosts(String email){
-        return appUserRepository.findSuggestions(email);
+    public List<AppUser>  findSuggestionsWithPosts(String email, Integer limit){
+        return appUserRepository.findSuggestions(email, limit);
     }
 
     public AppUser  followUser(String email, Long userId){

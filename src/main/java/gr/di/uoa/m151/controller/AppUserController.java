@@ -52,13 +52,13 @@ public class AppUserController {
     }
 
     @RequestMapping(value = "/findSuggestions", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<AppUserShort> findSuggestions(@RequestParam String email) {
-        return appUserService.findSuggestions(email);
+    public List<AppUserShort> findSuggestions(@RequestParam String email, @RequestParam String limit) {
+        return appUserService.findSuggestions(email, Integer.valueOf(limit));
     }
 
     @RequestMapping(value = "/findSuggestionsWithPosts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<AppUser> findSuggestionsWithPosts(@RequestParam String email) {
-        return appUserService.findSuggestionsWithPosts(email);
+    public List<AppUser> findSuggestionsWithPosts(@RequestParam String email, @RequestParam String limit) {
+        return appUserService.findSuggestionsWithPosts(email, Integer.valueOf(limit));
     }
 
     @RequestMapping(value = "/followUser", method = RequestMethod.POST,

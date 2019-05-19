@@ -17,6 +17,6 @@ public interface AppUserRepository extends CrudRepository<AppUser,Long> {
             "    where a.email = ?1 \n" +
             ") and au.email != ?1 \n" +
             "order by au.id desc\n" +
-            "limit 20;", nativeQuery = true)
-    List<AppUser> findSuggestions(String email);
+            "limit ?2", nativeQuery = true)
+    List<AppUser> findSuggestions(String email, Integer limit);
 }
