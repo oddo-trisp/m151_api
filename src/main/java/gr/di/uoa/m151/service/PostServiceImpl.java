@@ -1,12 +1,12 @@
 package gr.di.uoa.m151.service;
 
-import gr.di.uoa.m151.entity.*;
+import gr.di.uoa.m151.entity.AppUser;
+import gr.di.uoa.m151.entity.Post;
+import gr.di.uoa.m151.entity.UserPostReaction;
 import gr.di.uoa.m151.repo.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 @Service

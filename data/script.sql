@@ -36,6 +36,18 @@ create table follow (
   following_user_id bigint not null
 );
 
+create table chat_message (
+  id bigserial primary key,
+  sender_id bigint not null,
+  receiver_id bigint not null,
+  content text,
+  creation_date timestamp,
+
+  foreign key (sender_id) references app_user(id),
+  foreign key (receiver_id) references app_user(id)
+
+);
+
 
 INSERT INTO public.user_post_reaction (post_id, app_user_id, comment_text, reaction_type) VALUES (4, 25044, 'Comment from 25044', 'COMMENT');
 INSERT INTO public.user_post_reaction (post_id, app_user_id, comment_text, reaction_type) VALUES (4, 25043, 'Comment from 25043', 'COMMENT');
